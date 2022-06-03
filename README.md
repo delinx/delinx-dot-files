@@ -3,5 +3,6 @@ my dot and config files
 
 ![screenrhot](https://i.imgur.com/9F6dr10.jpg)
 
-Font: Go Mono Regular 12 PT
+new Font: Go Mono Regular 12 PT
+( I still love Fixedsys but it gets harder and harder to use fixed bitemap font on modern systems...
 ![font](https://imgur.com/l98Y5db.png)
