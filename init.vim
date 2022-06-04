@@ -207,4 +207,12 @@ endif
 
 tnoremap <Esc> <C-\><C-n><CR>
 
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 
+noremap <silent> <C-S>          :w<CR>
+vnoremap <silent> <C-S>         :w<CR>
+inoremap <silent> <C-S>         :w<CR>
