@@ -96,6 +96,7 @@ call plug#begin("~/.nvim_piugins")
  endif
 
   Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 call plug#end()
 
@@ -148,12 +149,13 @@ endfun
 augroup customDel
     autocmd!
     autocmd BufWritePre * :call TrimWhiteSpace()
+    autocmd FileType fzf tnoremap <buffer> <esc> <c-c>
 augroup END
 
 
 
 nnoremap <silent> gd          <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K           <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <leader>h           <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gi          <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> gr          <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gds         <cmd>lua vim.lsp.buf.document_symbol()<CR>
@@ -216,3 +218,14 @@ vnoremap <S-Tab> <gv
 noremap <silent> <C-S>          :w<CR>
 vnoremap <silent> <C-S>         :w<CR>
 inoremap <silent> <C-S>         :w<CR>
+
+" noremap <silent> <leader>f          <cmd>:%!astyle --style=break<CR>
+noremap <silent> <leader>f          <cmd>:%s/^\(\s*\).*\zs{\s*$/\r\1{/<CR>
+noremap <silent> <leader>fr         <cmd>:%! rustfmt<CR>
+
+set keywordprg=rusty-man
+
+nnoremap <silent> <leader>z          <cmd>FZF<CR>
+
+" - down / up / left / right
+let g:fzf_layout = { 'down': '20%' }
