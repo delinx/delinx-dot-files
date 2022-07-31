@@ -35,7 +35,7 @@ set cmdheight=2
 set updatetime=50
 set shortmess+=c
 
-set background=dark
+set background=dark "needed for transparent background
 let g:gruvbox_italics = 0
 let g:gruvbox_italicize_strings = 0
 
@@ -48,6 +48,7 @@ set listchars=
 
 set splitbelow splitright
 
+" This mess moves lines of text up and down while respecting tabbing
 nnoremap <A-k> mz:m-2<CR>`z==
 inoremap <A-j> <Esc>:m+<CR>==gi
 inoremap <A-k> <Esc>:m-2<CR>==gi
@@ -55,9 +56,12 @@ vnoremap <A-j> :m'>+<CR>gv=`<my`>mzgv`yo`z
 nnoremap <A-j> mz:m+<CR>`z==
 vnoremap <A-k> :m'<-2<CR>gv=`>my`<mzgv`yo`z
 
+" fix undo screwups by allowing non linear undos/redos
 nnoremap <F5> :UndotreeToggle<CR>
 nnoremap <silent> <C-p> <cmd>Telescope find_files theme=ivy<cr>
 
+" my leader key is spacebar, so I can do Spacebar > f < f to open telescope
+" file finder
 let mapleader= " "
 nnoremap <leader>ps <cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep for > ")})<cr>
 
@@ -229,3 +233,4 @@ nnoremap <silent> <leader>z          <cmd>FZF<CR>
 
 " - down / up / left / right
 let g:fzf_layout = { 'down': '20%' }
+
