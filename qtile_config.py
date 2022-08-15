@@ -86,6 +86,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawn('rofi -show drun'), desc="Spawn a command using a prompt widget"),
     Key([mod], "c", lazy.spawn('rofi -show combi'), desc="Spawn a command using a prompt widget"),
+    Key([mod], "v", lazy.spawn('neovide'), desc="Spawn a command using a prompt widget"),
 
     # CUSTOM DELINX STUFF
     Key([mod], "p", lazy.spawn('gpick --pick'), desc="Spawn a command using a prompt widget"),
