@@ -44,7 +44,7 @@ autostart()
 
 
 mod = "mod4"
-terminal = "terminator"
+terminal = "wezterm"
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -102,7 +102,7 @@ keys = [
 
 ]
 
-groups = [Group("DE1", layout='monadtall' ,spawn=['terminator -e "neofetch;bash"','firefox -new-instance -P "default-release"']),
+groups = [Group("DE1", layout='monadtall' ,spawn=['wezterm -e "neofetch;bash"','firefox -new-instance -P "default-release"']),
           Group("DE2", layout='monadtall'),
           Group("DE3", layout='monadtall'),
           Group("WWW", layout='max', spawn=['brave google.com']),

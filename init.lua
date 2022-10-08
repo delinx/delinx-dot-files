@@ -48,6 +48,7 @@ local config = {
 			guifont = "RobotoNerd:h14",
 			background = "dark",
 			colorcolumn="80",
+			textwidth=120,
 			hlsearch=false,
 			hidden=true,
 			showmatch=true,
@@ -94,6 +95,8 @@ local config = {
 			neovide_cursor_vfx_color_r = 245.0;
 			neovide_cursor_vfx_color_g = 95.0;
 			neovide_cursor_vfx_color_b = 148.0;
+
+			zig_fmt_autosave = 0;
 		},
 	},
 
@@ -124,7 +127,7 @@ local config = {
 			telescope = true,
 			vimwiki = false,
 			["which-key"] = true,
-			gruvbox = true
+			gruvbox = true,
 		},
 	},
 
@@ -177,32 +180,20 @@ local config = {
 			{
 				"ThePrimeagen/harpoon"
 			},
+			{
+				"ziglang/zig.vim"
+			},
+			{
+				"github/copilot.vim"
+			},
+			{
+				"mfussenegger/nvim-lint"
+			},
+			{
+				"adigitoleo/vim-mellow"
+			}
 		},
 		-- All other entries override the setup() call for default plugins
-		["null-ls"] = function(config)
-			local null_ls = require "null-ls"
-			-- Check supported formatters and linters
-			-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
-			-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
-			config.sources = {
-			  -- Set a formatter
-			  null_ls.builtins.formatting.rufo,
-			  -- Set a linter
-			  null_ls.builtins.diagnostics.rubocop,
-			}
-			-- set up null-ls's on_attach function
-			config.on_attach = function(client)
-			  -- NOTE: You can remove this on attach function to disable format on save
-			  if client.resolved_capabilities.document_formatting then
-			    vim.api.nvim_create_autocmd("BufWritePre", {
-			      desc = "Auto format before save",
-			      pattern = "<buffer>",
-			      callback = vim.lsp.buf.formatting_sync,
-			    })
-			  end
-			end
-			return config -- return final config table
-		end,
 		treesitter = {
 			ensure_installed = { "lua" },
 		},
@@ -289,6 +280,7 @@ local config = {
 			--     },
 			--   },
 			-- },
+			--
 		},
 	},
 
@@ -329,6 +321,11 @@ local config = {
 			["<leader>8"] = {"<cmd>:lua require(\"harpoon.ui\").nav_file(8)<CR>", desc = "Page 8 of Hapoon"},
 			["<leader>9"] = {"<cmd>:lua require(\"harpoon.ui\").nav_file(9)<CR>", desc = "Page 9 of Hapoon"},
 			["<leader>0"] = {"<cmd>:lua require(\"harpoon.ui\").nav_file(10)<CR>", desc = "Page 10 of Hapoon"},
+
+			["gh"] = { "<cmd>:lua SwitchBetweenFiles()<CR>" },
+
+			["frr"] = { "<cmd>:!rustfmt %<CR>" },
+			["frc"] = { "<cmd>:!rustfmt +nightly %<CR>" }
 		},
 		i = {
 			["<A-j>"] = { "<Esc>:m+<CR>==gi" },
@@ -369,7 +366,7 @@ local config = {
 		local opts = { noremap = true, silent = true }
 		vim.keymap.set({'n', 'i'}, "<C-->", function() ResizeGuiFont(1)  end, opts)
 		vim.keymap.set({'n', 'i'}, "<C-=>", function() ResizeGuiFont(-1) end, opts)
-		
+
 		-- Set up custom filetypes
 		-- vim.filetype.add {
 		--	 extension = {
@@ -399,6 +396,29 @@ end
 ResetGuiFont = function()
   vim.g.gui_font_size = vim.g.gui_font_default_size
   RefreshGuiFont()
+end
+
+SwitchBetweenFiles = function ()
+	--	vim.cmd("e %<.hpp")
+	file = vim.api.nvim_buf_get_name(0)
+	file = MySplit(file,".")[2]
+	if (file == "cpp") then
+		vim.cmd("e %<.hpp")
+	end
+	if (file == "hpp") then
+		vim.cmd("e %<.cpp")
+	end
+end
+
+MySplit = function(inputstr, sep)
+        if sep == nil then
+                sep = "%s"
+        end
+        local t={}
+        for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+                table.insert(t, str)
+        end
+        return t
 end
 
 ResetGuiFont()

@@ -147,15 +147,45 @@ alias qlogclr='rm ~/.local/share/qtile/qtile.log;touch ~/.local/share/qtile/qtil
 alias vim="nvim"
 alias vi="nvim"
 alias psleep="systemctl suspend"
+alias hibernate="systemctl hibernate"
 alias settings="systemsettings"
 
+alias zigr="clear;zig build run"
+alias zigt="clear;zig build test"
+
 # USER: Mouse acceleration and speed
-xset m 1/1 0
+#xset m 1/1 0
 
-MOUSE=$(xinput list --id-only 'Finalmouse Finalmouse Wireless Receiver')
+#MOUSE=$(xinput list --id-only 'Finalmouse Finalmouse Wireless Receiver')
 
-xinput set-prop $MOUSE "Coordinate Transformation Matrix" 1 0 0 0 1 0 0 0 1
+#xinput set-prop $MOUSE "Coordinate Transformation Matrix" 1 0 0 0 1 0 0 0 1
 
 PATH="$HOME/.local/bin:$PATH"
 
 setxkbmap -option caps:escape
+
+export PATH=”$HOME/.emacs.d/bin:$PATH”
+export PATH="$PATH:home/del/zigbin/zig"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+export PATH="$PATH:$GEM_HOME/bin"
+
+
+alias run="./run.sh"
+alias clean="make clean"
+alias make="time make -j 30"
+alias maker="time make -j 30 RELEASE=1"
+
+alias r="run"
+alias cc="clean"
+alias c="clear"
+alias m="make"
+alias mr="maker"
+
+
+source /etc/profile.d/debuginfod.sh
+export PATH=$PATH:/home/del/.spicetify
